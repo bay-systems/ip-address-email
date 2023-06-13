@@ -6,7 +6,7 @@ last_ip_file="/var/cache/ip_address"
 last_ip=$(cat ${last_ip_file})
 my_hostname=$(/bin/hostname)
 
-if my_ip=$(/bin/dig +short myip.opendns.com @resolver1.opendns.com); then
+if my_ip=$(/bin/dig -4 +short ANY  @resolver1.opendns.com myip.opendns.com); then
     if [[ ${my_ip} != ${last_ip} ]]; then
         echo "The IP address has changed from ${last_ip} to ${my_ip}" |
         ${mail_cmd} -s "NOTICE: IP address has changed for host ${my_hostname}" ${recipients}
